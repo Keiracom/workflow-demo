@@ -17,6 +17,7 @@ import { TriggerNode, ProcessNode, AiNode, OutputNode } from './nodes/CustomNode
 import TopBar from './components/TopBar.jsx'
 import NodePalette from './components/NodePalette.jsx'
 import ExecutionLog from './components/ExecutionLog.jsx'
+import ResultsPanel from './components/ResultsPanel.jsx'
 
 const NODE_TYPES = {
   triggerNode: TriggerNode,
@@ -69,6 +70,7 @@ export default function App() {
   const [runComplete, setRunComplete] = useState(false)
   const [logEntries, setLogEntries] = useState([])
   const [logOpen, setLogOpen] = useState(true)
+  const [resultsVisible, setResultsVisible] = useState(false)
   const reactFlowWrapper = useRef(null)
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
   const runAbortRef = useRef(false)
@@ -91,6 +93,7 @@ export default function App() {
       setNodes(buildNodes(template))
       setEdges(buildEdges(template))
       setRunComplete(false)
+      setResultsVisible(false)
       setLogEntries([])
     },
     [isRunning, setNodes, setEdges]
@@ -122,6 +125,7 @@ export default function App() {
     setNodes((nds) => nds.map((n) => ({ ...n, data: { ...n.data, status: 'idle' } })))
     setLogEntries([])
     setRunComplete(false)
+    setResultsVisible(false)
     setIsRunning(true)
     runAbortRef.current = false
     setLogOpen(true)
@@ -174,6 +178,7 @@ export default function App() {
     if (!runAbortRef.current) {
       addLog(`Pipeline finished successfully`, 'complete')
       setRunComplete(true)
+      setTimeout(() => setResultsVisible(true), 500)
     }
 
     setIsRunning(false)
@@ -291,6 +296,12 @@ export default function App() {
               maskColor="rgba(247,243,238,0.7)"
             />
           </ReactFlow>
+
+          <ResultsPanel
+            templateId={activeTemplateId}
+            visible={resultsVisible}
+            onClose={() => setResultsVisible(false)}
+          />
 
           {/* Template info badge */}
           <div
