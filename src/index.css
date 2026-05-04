@@ -1,0 +1,119 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --cream: #F7F3EE;
+  --amber: #D4956A;
+  --amber-light: #F0C99A;
+  --dark: #0C0A08;
+  --dark-soft: #1a1714;
+  --text: #0C0A08;
+  --text-muted: #6B6460;
+  --border: #E5DDD4;
+  --white: #FFFFFF;
+  --green: #22C55E;
+  --red: #EF4444;
+  --purple: #A855F7;
+  --blue: #3B82F6;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+}
+
+/* React Flow overrides */
+.react-flow__background {
+  background-color: var(--cream) !important;
+}
+
+.react-flow__edge-path {
+  stroke: #C4B9AE !important;
+  stroke-width: 2 !important;
+}
+
+.react-flow__edge.selected .react-flow__edge-path,
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: var(--amber) !important;
+}
+
+.react-flow__edge-label {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 10px !important;
+  fill: var(--text-muted) !important;
+}
+
+.react-flow__handle {
+  width: 10px !important;
+  height: 10px !important;
+  border: 2px solid var(--border) !important;
+  background: var(--white) !important;
+}
+
+.react-flow__handle:hover,
+.react-flow__handle.connectingfrom,
+.react-flow__handle.connectingto {
+  background: var(--amber) !important;
+  border-color: var(--amber) !important;
+}
+
+.react-flow__controls {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border) !important;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background: var(--white) !important;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--text-muted) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--cream) !important;
+}
+
+.react-flow__minimap {
+  border-radius: 8px !important;
+  border: 1px solid var(--border) !important;
+  overflow: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C4B9AE;
+}
+
+/* Pulse animation for running nodes */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(212, 149, 106, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(212, 149, 106, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 149, 106, 0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.log-entry {
+  animation: fade-in 0.2s ease-out;
+}
